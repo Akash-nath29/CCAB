@@ -1,0 +1,31 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[functions]
+  node_bundler = "esbuild"
+
+[dev]
+  command = "npm run dev"
+  targetPort = 5000
+  port = 8888
+  publish = "dist"
+  autoLaunch = false
+
+[context.production.environment]
+  VITE_NETWORK = "mainnet"
+  VITE_NODE_URL = "https://fullnode.mainnet.aptoslabs.com"
+
+[context.deploy-preview.environment]
+  VITE_NETWORK = "testnet"
+  VITE_NODE_URL = "https://fullnode.testnet.aptoslabs.com"
+  VITE_FAUCET_URL = "https://faucet.testnet.aptoslabs.com"
